@@ -13,7 +13,7 @@ from app.database.base import Base
 class Project(Base):
     __tablename__ = "projects"
 
-    id: Mapped[int] = mapped_column(
+    project_id: Mapped[int] = mapped_column(
         Integer,
         primary_key=True,
         index=True
@@ -33,3 +33,9 @@ class Project(Base):
         DateTime,
         default=datetime.utcnow
     )
+    
+    updated_at: Mapped[datetime] = mapped_column(
+        DateTime,
+        default=datetime.utcnow,
+        onupdate=datetime.utcnow
+)

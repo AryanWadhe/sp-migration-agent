@@ -1,6 +1,8 @@
+from typing import List
+
 from fastapi import APIRouter
 from fastapi import Depends
-
+from fastapi import HTTPException
 from sqlalchemy.orm import Session
 
 from app.database.dependencies import get_db
@@ -32,3 +34,35 @@ def create_project(
         name=payload.name,
         description=payload.description
     )
+
+
+@router.get(
+    "",
+    response_model=List[ProjectResponse]
+)
+def get_projects(
+    db: Session = Depends(get_db)
+):
+    return ProjectRepository.get_all(db)
+
+@router.get(
+    "/{project_id}",
+    response_model=ProjectResponse
+)
+def get_project(
+    project_id: int,
+    db: Session = Depends(get_db)
+):
+
+    project = ProjectRepository.get_by_id(
+        db,
+        project_id
+    )
+
+    if not project:
+        raise HTTPException(
+            status_code=404,
+            detail="Project not found"
+        )
+
+    return project

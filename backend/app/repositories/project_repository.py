@@ -20,5 +20,27 @@ class ProjectRepository:
         db.add(project)
         db.commit()
         db.refresh(project)
-
         return project
+
+    @staticmethod
+    def get_all(
+        db: Session
+    ) -> list[Project]:
+
+        return (
+            db.query(Project)
+            .order_by(Project.project_id)
+            .all()
+        )
+    
+    @staticmethod
+    def get_by_id(
+        db: Session,
+        project_id: int
+    ) -> Project | None:
+
+        return (
+            db.query(Project)
+            .filter(Project.project_id == project_id)
+            .first()
+        )
