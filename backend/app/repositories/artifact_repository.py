@@ -16,3 +16,17 @@ class ArtifactRepository:
         db.refresh(artifact)
 
         return artifact
+    
+    @staticmethod
+    def get_by_id(
+        db: Session,
+        artifact_id: int
+    ) -> Artifact | None:
+
+        return (
+            db.query(Artifact)
+            .filter(
+                Artifact.artifact_id == artifact_id
+            )
+            .first()
+        )

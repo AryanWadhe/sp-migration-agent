@@ -8,6 +8,10 @@ from app.api.artifacts import (
     router as artifact_router
 )
 
+from app.api.analysis import (
+    router as analysis_router
+)
+
 
 app = FastAPI(
     title=settings.APP_NAME
@@ -30,5 +34,10 @@ app.include_router(
 
 app.include_router(
     artifact_router,
+    prefix=settings.API_PREFIX
+)
+
+app.include_router(
+    analysis_router,
     prefix=settings.API_PREFIX
 )
