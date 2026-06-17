@@ -11,10 +11,15 @@ class JoinCondition(BaseModel):
 
 
 class ParserResult(BaseModel):
+
     source_tables: list[str] = []
     target_tables: list[str] = []
+
     views: list[str] = []
     functions: list[str] = []
+
     joins: list[JoinCondition] = []
+
     filters: list[str] = []
+
     aggregations: list[dict] = []

@@ -10,11 +10,14 @@ class ParserService:
     ) -> dict:
 
         result = {
-            "tables": [],
-            "views": [],
-            "ctes": [],
-            "functions": []
-        }
+        "source_tables": [],
+        "target_tables": [],
+        "views": [],
+        "functions": [],
+        "joins": [],
+        "filters": [],
+        "aggregations": []
+    }
 
         try:
 

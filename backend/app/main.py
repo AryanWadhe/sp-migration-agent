@@ -12,6 +12,14 @@ from app.api.analysis import (
     router as analysis_router
 )
 
+from app.api.dbt import (
+    router as dbt_router
+)
+
+from app.api.generated_artifacts import (
+    router as generated_artifact_router
+)
+
 
 app = FastAPI(
     title=settings.APP_NAME
@@ -39,5 +47,15 @@ app.include_router(
 
 app.include_router(
     analysis_router,
+    prefix=settings.API_PREFIX
+)
+
+app.include_router(
+    dbt_router,
+    prefix=settings.API_PREFIX
+)
+
+app.include_router(
+    generated_artifact_router,
     prefix=settings.API_PREFIX
 )
