@@ -9,16 +9,20 @@ class GeneratedArtifactService:
 
     @staticmethod
     def create_dbt_model(
-        db: Session,
-        artifact_id: int,
-        dbt_sql: str
+        db,
+        artifact_id,
+        model_name,
+        storage_path,
+        dbt_sql
     ):
 
         return (
             GeneratedArtifactRepository.create(
-                db=db,
+                 db=db,
                 artifact_id=artifact_id,
                 artifact_type="DBT_MODEL",
+                model_name=model_name,
+                storage_path=storage_path,
                 content=dbt_sql
             )
         )

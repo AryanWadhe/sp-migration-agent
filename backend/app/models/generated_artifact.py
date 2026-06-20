@@ -5,7 +5,7 @@ from sqlalchemy import ForeignKey
 from sqlalchemy import Integer
 from sqlalchemy import String
 from sqlalchemy import Text
-
+from sqlalchemy import String
 from sqlalchemy.orm import Mapped
 from sqlalchemy.orm import mapped_column
 
@@ -46,4 +46,14 @@ class GeneratedArtifact(Base):
         DateTime,
         default=datetime.utcnow,
         onupdate=datetime.utcnow
+    )
+    
+    model_name: Mapped[str] = mapped_column(
+    String(500),
+    nullable=False
+    )
+
+    storage_path: Mapped[str | None] = mapped_column(
+        String(1000),
+        nullable=True
     )

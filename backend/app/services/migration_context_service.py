@@ -36,6 +36,8 @@ class MigrationContextService:
         for statement in classified[
             "business_statements"
         ]:
+            
+            print( "BusinessStatementParser:", dir(BusinessStatementParser) )
 
             source_tables.update(
                 BusinessStatementParser.extract_source_tables(
@@ -49,11 +51,17 @@ class MigrationContextService:
                 )
             )
 
-        return {
-            "source_tables": sorted(
-                list(source_tables)
-            ),
-            "target_tables": sorted(
-                list(target_tables)
-            )
-        }
+        result = {
+        "source_tables": sorted(
+            list(source_tables)
+        ),
+        "target_tables": sorted(
+            list(target_tables)
+        )
+    }
+        
+        print("=" * 80)
+        print("FINAL CONTEXT")
+        print(result)
+
+        return result

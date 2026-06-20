@@ -24,3 +24,26 @@ class GeneratedArtifactQueryService:
             )
 
         return artifact
+    
+    
+    @staticmethod
+    def get_by_artifact_id(
+        db,
+        artifact_id: int
+    ):
+
+        artifact = (
+            GeneratedArtifactRepository
+            .get_by_artifact_id(
+                db,
+                artifact_id
+            )
+        )
+
+        if not artifact:
+
+            raise ValueError(
+                "Generated artifact not found"
+            )
+
+        return artifact

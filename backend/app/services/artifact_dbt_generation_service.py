@@ -14,6 +14,9 @@ from app.services.dbt_generation_service import (
 from app.services.generated_artifact_service import (
     GeneratedArtifactService
 )
+from app.services.generated_storage_service import (
+    GeneratedStorageService
+)
 
 
 class ArtifactDBTGenerationService:
@@ -50,11 +53,25 @@ class ArtifactDBTGenerationService:
                 artifact.original_content
             )
         )
-        print(context)
+        # ArtifactDBTGenerationService.generate()
+        # print(context)
 
         generated_result = (
             DBTGenerationService.generate(
                 context
+            )
+        )
+        model_name = ( generated_result["target_model"])
+        
+        project_id = artifact.project_id
+
+        storage_path = (
+            GeneratedStorageService.save_model(
+                project_id=project_id,
+                model_name=model_name,
+                content=generated_result[
+                    "dbt_sql"
+                ]
             )
         )
         print("GENERATED RESULT")
@@ -64,8 +81,12 @@ class ArtifactDBTGenerationService:
             GeneratedArtifactService.create_dbt_model(
                 db=db,
                 artifact_id=artifact_id,
-                dbt_sql=generated_result["dbt_sql"]
-            )
+                model_name=model_name,
+                storage_path=storage_path,
+                dbt_sql=generated_result[
+                    "dbt_sql"
+                ]
+)
         )
 
         return {

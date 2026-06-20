@@ -32,6 +32,10 @@ from app.schemas.upload_generate_response import (
     UploadGenerateResponse
 )
 
+from app.services.project_artifact_service import (
+    ProjectArtifactService
+)
+
 router = APIRouter(
     prefix="/artifacts",
     tags=["Artifacts"]

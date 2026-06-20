@@ -4,6 +4,7 @@ from app.api.health import router as health_router
 from app.api.database import router as database_router
 from app.core.config import settings
 from app.api.projects import router as project_router
+from fastapi.middleware.cors import CORSMiddleware
 from app.api.artifacts import (
     router as artifact_router
 )
@@ -58,4 +59,12 @@ app.include_router(
 app.include_router(
     generated_artifact_router,
     prefix=settings.API_PREFIX
+)
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
 )
